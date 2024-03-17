@@ -12,19 +12,24 @@ def format(duration: float):
 
 def duration(path: str):
     """Return duration of audio"""
+    
     return format(get_duration(path=path))
 
-def name(song):
-    """Reformat name song"""
-    return song.replace('.mp3', '').split('/')[-1].replace('_', ' ')
+def name(song_path):
+    """Format song's name"""
+    
+    return song_path.replace('.mp3', '')\
+                    .split('/')[-1]\
+                    .replace('_', ' ')
 
 def get_songs():
     """Get all songs in music folder"""
+    
     songs = {}
     
     for song in pathlib.Path('static/music').glob("*"):
         if song.suffix == '.mp3':
-            songs[name(song.name)] = str(song)
+            songs[f'{name(song.name)}_{duration(song)}'] = str(song)
 
     print(songs)
     return songs
