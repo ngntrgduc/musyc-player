@@ -6,17 +6,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const player = document.getElementById('player');
     const songs = document.querySelectorAll('.song-name');
 
-    function togglePlayPause(e) {
-        if (e.key === " ") { // Check if the pressed key is the spacebar
-            if (player.paused) {
-                player.play();
-            } else {
-                player.pause();
-            }
+    function togglePlayPause() {
+        if (player.paused) {
+            player.play();
+        } else {
+            player.pause();
         }
     }
 
-    document.addEventListener('keydown', togglePlayPause);
+    function seek(e) {
+        const SEEK_SEC = 5;
+        if (e.key === 'ArrowRight') {
+            player.currentTime += SEEK_SEC;
+        } else if (e.key === 'ArrowLeft') {
+            player.currentTime -= SEEK_SEC;
+        }
+    }
+
+    function handleKeyDown(e) {
+        if (e.key === ' ') {
+            togglePlayPause();
+        } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            seek(e);
+        }
+    }
+    document.addEventListener('keydown', handleKeyDown);
 
     songs.forEach((song) => {
         song.addEventListener('click', function(e) {
