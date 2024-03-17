@@ -9,12 +9,6 @@
 <body>
     <h1>Musyc</h1>
 
-    <!-- {% if song %} -->
-        <!-- <h3>
-            {{ name }}
-            <audio id="player" src="{{ song }}" controls></audio>
-        </h3> -->
-
         <!-- <audio id="player" src="{{ song }}" controls></audio> -->
         <!-- <div> 
             <button onclick="document.getElementById('player').play()">Play</button> 
@@ -22,14 +16,20 @@
             <button onclick="document.getElementById('player').volume += 0.1">Vol +</button> 
             <button onclick="document.getElementById('player').volume -= 0.1">Vol -</button> 
         </div> -->
-    <!-- {% endif %} -->
+        
     {% if songs %}
-        <div>
+        <ul id="song-list">
             {% for name, src in songs.items() %}
-                <h3>{{ name }}</h3>
-                <audio id="player" src="{{ src }}" controls></audio>
+                <li class="song">
+                    <a class="song-name" data-src="{{ src }}">{{ name.split('_')[0] }}</a>
+                    <a class="duration">{{ name.split('_')[1] }}</a>
+                </li>
             {% endfor %}
-        </div>
+        </ul>
     {% endif %}
+
+    <audio id="player" controls></audio>
+
+    <script src="static/script.js"></script>
 </body>
 </html>
