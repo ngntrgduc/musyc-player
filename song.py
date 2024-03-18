@@ -3,37 +3,54 @@
 import pathlib
 from librosa import get_duration  # librosa is faster than pydub
 
-def format(duration: float):
-    """Format length of audio"""
-
+def format(duration: float) -> str:
+    """Format duration of song"""
+    if duration > 3600:
+        hour = int(duration // 3600)
+        minute = int((duration - hour*3600) // 60)
+        second = int(duration - (hour*3600 + minute*60));
+        return f'{hour}:{minute:0>2}:{second:0>2}'
+    
     minute = int(duration // 60)
     second = int(duration - minute*60)
-    return f'{minute}:{second}'
+    return f'{minute}:{second:0>2}'
 
-def duration(path: str):
-    """Return duration of audio"""
+def duration(path: str) -> str:
+    """Return duration from song's path"""
     
     return format(get_duration(path=path))
 
-def name(song_path):
-    """Format song's name"""
+def name(path: str) -> str:
+    """Format song's name from path"""
     
-    return song_path.replace('.mp3', '')\
+    return path.replace('.mp3', '')\
                     .split('/')[-1]\
                     .replace('_', ' ')
 
-def get_songs():
-    """Get all songs in music folder"""
+def get_songs(folder: str = '', all: bool = False) -> dict:
+    """Get songs in music folder"""
     
     songs = {}
+    pattern = '**/*.mp3' if all else '*.mp3'
     
-    for song in pathlib.Path('static/music').glob("*"):
-        if song.suffix == '.mp3':
-            songs[f'{name(song.name)}_{duration(song)}'] = str(song)
+    for path in pathlib.Path(f'static/music/{folder}').glob(pattern):
+        songs[f'{name(path.name)}_{duration(path)}'] = str(path)
 
-    print(songs)
+    # print(songs)
     return songs
+
+def get_playlists() -> list:
+    """Get all playlists"""
+
+    playlists = []
+    for folder in pathlib.Path('static/music/').glob('*'):
+        if folder.is_dir():
+            # print(folder.stem)
+            playlists.append(folder.stem)
+
+    return playlists
 
 if __name__ == '__main__':
     # print(duration('static/music/Vexento_Tevo.mp3'))
-    get_songs()
+    # get_songs()
+    print(get_playlists())
