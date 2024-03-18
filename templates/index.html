@@ -4,31 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
     <title>Musyc</title>
 </head>
 <body>
-    <h1>Musyc</h1>
+    <div class="sidebar">
+        <a id="heading" href="/">Musyc</a>
+        <a href="/all">All songs</a>
+        <a href="/playlist">Playlist</a>
+    </div>
+    <!-- sidebar go here, include All songs, playlist -->        
 
-        <!-- <audio id="player" src="{{ song }}" controls></audio> -->
-        <!-- <div> 
-            <button onclick="document.getElementById('player').play()">Play</button> 
-            <button onclick="document.getElementById('player').pause()">Pause</button> 
-            <button onclick="document.getElementById('player').volume += 0.1">Vol +</button> 
-            <button onclick="document.getElementById('player').volume -= 0.1">Vol -</button> 
-        </div> -->
-        
-    {% if songs %}
-        <ul id="song-list">
-            {% for name, src in songs.items() %}
-                <li class="song">
-                    <a class="song-name" data-src="{{ src }}">{{ name.split('_')[0] }}</a>
-                    <a class="duration">{{ name.split('_')[1] }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="main">
+        <!-- <a id="heading">Musyc</a> -->
+        <!-- Musyc -->
 
-    <audio id="player" controls></audio>
+        {% if songs %}
+            <ul id="song-list">
+                {% for name, src in songs.items() %}
+                    <li class="song">
+                        <a class="song-name" data-src="{{ src }}">{{ name.split('_')[0] }}</a>
+                        <a class="duration">{{ name.split('_')[1] }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <audio id="player" controls></audio>
+    </div>
+
+    <div class="sidebar"></div>
 
     <script src="static/script.js"></script>
 </body>
