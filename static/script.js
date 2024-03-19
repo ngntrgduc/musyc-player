@@ -2,7 +2,9 @@ function changeTitle(name) {
     document.title = name;
 }
 
+let currentSongIndex = 0;
 let loop = false;
+
 document.getElementById('loopButton').addEventListener('click', () => {
     const loopClass = 'fa-solid fa-arrow-rotate-left';
     if (loop) {
@@ -56,52 +58,45 @@ document.addEventListener('DOMContentLoaded', function() {
             decreaseVolume();
         }
     }
+
     document.addEventListener('keydown', handleKeyDown);
 
-    songs.forEach((song) => {
-        song.addEventListener('click', function(e) {
-            e.preventDefault();
-            const src = this.getAttribute('data-src');
-            player.src = src;
-            player.play();
-            changeTitle('Musyc | ' + song.innerHTML);
-
-            songs.forEach(song => song.classList.remove('playing'));
-            this.classList.add('playing');
-        });
-    });
-
-    // player.addEventListener('ended', () => {
-    //     nextSong();
-    // });
-
-    // function getCurrentSongIndex() {
-    //     console.log(player.src);
-    //     console.log(songs[0].getAttribute('data-src'));
-    //     console.log(songs[1].getAttribute('data-src'));
+    // function getCurrentSongIndex(src) {
     //     for (let i = 0; i < songs.length; i++) {
-    //         if (player.src === songs[i].getAttribute('data-src')) {
+    //         if (src === songs[i].getAttribute('data-src')) {
     //             return i;
     //         }
     //     }
-    //     return -1;
     // }
 
-    // function nextSong() {
-    //     let currentSongIndex = getCurrentSongIndex();
-    //     alert(currentSongIndex);
-    //     currentSongIndex = (currentSongIndex + 1) % songs.length;
-    //     playSongAtIndex(currentSongIndex);
-    // }
+    songs.forEach((song, index) => {
+        song.addEventListener('click', function() {
+            playSong(index);
+        });
+    });
 
-    // // Function to play a song at a given index
-    // function playSongAtIndex(index) {
-    //     const song = songs[index];
-    //     const src = song.getAttribute('data-src');
-    //     player.src = src;
-    //     player.play();
-    //     // isPlaying = true;
-    // }
+    player.addEventListener('ended', () => {
+        if (!loop) nextSong();
+    });
+
+    function nextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        playSong(currentSongIndex);
+    }
+
+    function playSong(index) {
+        const song = songs[index];
+        const src = song.getAttribute('data-src');
+        player.src = src;
+        player.play();
+        changeTitle('Musyc | ' + song.innerHTML);
+
+        // Change color of current playing song
+        songs.forEach(song => song.classList.remove('playing'));
+        song.classList.add('playing');
+
+        currentSongIndex = index;
+    }
 
     // function initPlayer() {
     //     playSongAtIndex(0);
