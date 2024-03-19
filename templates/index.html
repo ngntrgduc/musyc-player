@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/style.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Musyc</title>
 </head>
 <body>
@@ -13,12 +13,8 @@
         <a href="/all">All songs</a>
         <a href="/playlist">Playlist</a>
     </div>
-    <!-- sidebar go here, include All songs, playlist -->        
 
     <div class="main">
-        <!-- <a id="heading">Musyc</a> -->
-        <!-- Musyc -->
-
         {% if songs %}
             <ul id="song-list">
                 {% for name, src in songs.items() %}
@@ -33,7 +29,9 @@
         <audio id="player" controls></audio>
     </div>
 
-    <div class="sidebar"></div>
+    <div class="sidebar">
+        <i id="loopButton" class="fa-solid fa-arrow-rotate-left"></i>
+    </div>
 
     <script src="static/script.js"></script>
 </body>
