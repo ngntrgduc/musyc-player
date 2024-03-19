@@ -148,3 +148,20 @@ a:hover {
         display: none;
     }
 }
+
+.toggled {
+    color: var(--red);
+}
+
+.fa-solid {
+    font-size: 2em;
+    width: fit-content;
+}
+
+i {
+    transition-duration: var(--duration);
+}
+
+i:hover {
+    color: var(--blue);
+}
