@@ -35,11 +35,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function increaseVolume() {
+        if (player.volume + 0.1 > 1) player.volume = 1;
+        else player.volume += 0.1;
+    }
+
+    function decreaseVolume() {
+        if (player.volume - 0.1 < 0) player.volume = 0;
+        else player.volume -= 0.1;
+    }
+
     function handleKeyDown(e) {
         if (e.key === ' ') {
             togglePlayPause();
         } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
             seek(e);
+        } else if (e.key === '+') {
+            increaseVolume();
+        } else if (e.key === '-') {
+            decreaseVolume();
         }
     }
     document.addEventListener('keydown', handleKeyDown);
