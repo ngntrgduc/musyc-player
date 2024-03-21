@@ -32,9 +32,12 @@ def get_songs(folder: str = '', all: bool = False) -> dict:
     
     songs = {}
     pattern = '**/*.mp3' if all else '*.mp3'
+    static_path = pathlib.Path('static')
     
     for path in pathlib.Path(f'static/music/{folder}').glob(pattern):
-        songs[f'{name(path.name)}_{duration(path)}'] = str(path)
+        # Convert path to posix to work with url_for format (/) in Flask
+        relative_path = str(path.relative_to(static_path).as_posix())
+        songs[f'{name(path.name)}_{duration(path)}'] = relative_path
 
     # print(songs)
     return songs
