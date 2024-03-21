@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Musyc</title>
 </head>
 <body>
+
     <div class="sidebar">
         <a id="heading" href="/">Musyc</a>
         <a href="/all">All songs</a>
-        <a href="/playlist">Playlist</a>
+        <a href="/playlists">Playlists</a>
     </div>
 
     <div class="main">
-        {% if songs %}
-            <ul id="song-list">
-                {% for name, src in songs.items() %}
-                    <li class="song">
-                        <a class="song-name" data-src="{{ src }}">{{ name.split('_')[0] }}</a>
-                        <a class="duration">{{ name.split('_')[1] }}</a>
-                    </li>
+        {% if playlists %}
+            <div id="playlists">
+                {% for name in playlists %}
+                    
+                    <a class="playlist-name" href="/playlists/{{ name }}">{{ name }}</a>
                 {% endfor %}
-            </ul>
+            </div>
+        {% else %}
+            {% if songs %}
+                <ul id="song-list">
+                    {% for name, src in songs.items() %}
+                        <li class="song">
+                            <a class="song-name" data-src="{{ url_for('static', filename=src) }}">{{ name.split('_')[0] }}</a>
+                            <a class="duration">{{ name.split('_')[1] }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
 
         <audio id="player" controls></audio>
@@ -33,6 +43,6 @@
         <i id="loopButton" class="fa-solid fa-arrow-rotate-left"></i>
     </div>
 
-    <script src="static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
