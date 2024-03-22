@@ -2,23 +2,37 @@ function changeTitle(name) {
     document.title = name;
 }
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i+1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 let currentSongIndex = 0;
 let loop = false;
 
 document.getElementById('loopButton').addEventListener('click', () => {
     const loopClass = 'fa-solid fa-arrow-rotate-left';
+    const button = document.getElementById('loopButton');
     if (loop) {
         loop = player.loop = false;
-        document.getElementById('loopButton').className = loopClass;
+        button.className = loopClass;
     } else {
         loop = player.loop = true;
-        document.getElementById('loopButton').className = loopClass + ' toggled';
+        button.className = loopClass + ' toggled';
     }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
     const player = document.getElementById('player');
-    const songs = document.querySelectorAll('.song-name');
+    let songs = document.querySelectorAll('.song-name');
+    songs.forEach((song, index) => {
+        song.addEventListener('click', function() {
+            playSong(index);
+        });
+    });
 
     function togglePlayPause() {
         if (player.paused) {
@@ -61,20 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', handleKeyDown);
 
-    // function getCurrentSongIndex(src) {
-    //     for (let i = 0; i < songs.length; i++) {
-    //         if (src === songs[i].getAttribute('data-src')) {
-    //             return i;
-    //         }
-    //     }
-    // }
-
-    songs.forEach((song, index) => {
-        song.addEventListener('click', function() {
-            playSong(index);
-        });
-    });
-
     player.addEventListener('ended', () => {
         if (!loop) nextSong();
     });
@@ -98,7 +98,30 @@ document.addEventListener('DOMContentLoaded', function() {
         currentSongIndex = index;
     }
 
-    // function initPlayer() {
-    //     playSongAtIndex(0);
-    // }
+    document.getElementById('shuffleButton').addEventListener('click', shuffleSongs);
+
+    function shuffleSongs() {
+        const songList = document.getElementById('song-list');
+        const shuffledSongs = shuffle(Array.from(songList.children));
+        songList.innerHTML = ''; // Clear existing song list
+        shuffledSongs.forEach(song => songList.appendChild(song));
+
+        // Update new index for shuffled songs
+        songs = document.querySelectorAll('.song-name');
+        songs.forEach((song, index) => {
+            song.addEventListener('click', function() {
+                playSong(index);
+            });
+        });
+
+        currentSongIndex = getCurrentSongIndex();
+    }
+
+    function getCurrentSongIndex() {
+        const src = document.getElementById('player').getAttribute('src')
+        for (let i = 0; i < songs.length; i++) {
+            if (src === songs[i].getAttribute('data-src')) return i;
+        }
+    }
+
 });
