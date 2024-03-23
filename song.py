@@ -39,7 +39,10 @@ def get_songs(folder: str = '', all: bool = False) -> dict:
         relative_path = str(path.relative_to(static_path).as_posix())
         songs[f'{name(path.name)}_{duration(path)}'] = relative_path
 
-    # print(songs)
+    # Sorted for all songs
+    if all:
+        return dict(sorted(songs.items(), key=lambda x: x[0].lower()))
+
     return songs
 
 def get_playlists() -> list:
