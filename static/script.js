@@ -41,6 +41,7 @@ function togglePlayPause(player) {
     } else {
         player.pause();
     }
+    document.getElementById('player').blur();
 }
 
 function seek(player, seconds) {
