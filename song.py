@@ -37,7 +37,10 @@ def get_songs(folder: str = '', all: bool = False) -> dict:
     for path in pathlib.Path(f'static/music/{folder}').glob(pattern):
         # Convert path to posix to work with url_for format (/) in Flask
         relative_path = str(path.relative_to(static_path).as_posix())
-        songs[f'{name(path.name)}_{duration(path)}'] = relative_path
+        songs[f'{name(path.name)}'] = {
+            'duration': duration(path),
+            'path': relative_path
+        }
 
     # Sorted for all songs
     if all:
@@ -57,6 +60,9 @@ def get_playlists() -> list:
     return playlists
 
 if __name__ == '__main__':
+    from rich import print
     # print(duration('static/music/Vexento_Tevo.mp3'))
-    # get_songs()
-    print(get_playlists())
+    songs = get_songs(all=True)
+    print(songs)
+    # print(dict(sorted(songs.items(), key=lambda x: x[0].lower())))
+    # print(get_playlists())

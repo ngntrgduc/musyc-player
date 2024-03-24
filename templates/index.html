@@ -26,10 +26,10 @@
         {% else %}
             {% if songs %}
                 <ul id="song-list">
-                    {% for name, src in songs.items() %}
+                    {% for name, song_info in songs.items() %}
                         <li class="song">
-                            <a class="song-name" data-src="{{ url_for('static', filename=src) }}">{{ name.split('_')[0] }}</a>
-                            <a class="duration">{{ name.split('_')[1] }}</a>
+                            <a class="song-name" data-src="{{ url_for('static', filename=song_info.path) }}">{{ name }}</a>
+                            <a class="duration">{{ song_info.duration }}</a>
                         </li>
                     {% endfor %}
                 </ul>
