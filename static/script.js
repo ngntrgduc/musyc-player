@@ -61,7 +61,7 @@ function getCurrentSongIndex() {
 }
 
 function loopSong() {
-    const loopClass = 'fa-solid fa-arrow-rotate-left';
+    const loopClass = 'fa-solid fa-arrows-rotate';
     const button = document.getElementById('loopButton');
     loop = !loop;
     player.loop = loop;
