@@ -87,6 +87,11 @@ function shuffleSongs() {
     currentSongIndex = getCurrentSongIndex();
 }
 
+
+document.getElementById('loopButton').addEventListener('click', loopSong);
+
+document.getElementById('shuffleButton').addEventListener('click', shuffleSongs);
+
 document.addEventListener('DOMContentLoaded', function() {
     const player = document.getElementById('player');
     player.addEventListener('ended', () => {
@@ -110,8 +115,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.addEventListener('keydown', handleKeyDown);
-
-    document.getElementById('loopButton').addEventListener('click', loopSong);
-
-    document.getElementById('shuffleButton').addEventListener('click', shuffleSongs);
 });
