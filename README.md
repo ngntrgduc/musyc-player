@@ -32,10 +32,10 @@ Minimal Music player, built with Python + Flask.
 - [x] sort songs in alphabetical order of All songs route
 - [ ] ~~Keep song playing when change route~~
 - [ ] Download Soundcloud song
-    - Thanks https://sclouddownloader.net/ <3, or maybe yt-dlp
+    - Using yt-dlp
     - Crawl all the links of liked songs on Soundcloud, then use Selenium to download songs (not download all of that)
         - Also get the song's name, and format it when downloading
-    - [ ] Download songs with yt-dlp? or keep it simple? add a route for downloading songs?
+    - [ ] add a route for downloading songs? or keep it simpe?
 - [ ] If have lots of songs, implement fuzzy search for searching songs, or just show random songs
 - [ ] song in multiple playlists? SQL?
 - [ ] Another way to get the duration of the song, remove librosa
@@ -46,9 +46,10 @@ Minimal Music player, built with Python + Flask.
 ## Installation
 1. Clone this repo
 ```git
-git clone 
+git clone https://github.com/ngntrgduc/musyc-player
 ```
-2. Install Flask, librosa
+2. Install [Flask](https://flask.palletsprojects.com/en/3.0.x/), 
+[librosa](https://librosa.org/doc/latest/index.html) (for getting song's duration)
 3. Run
 ```py
 flask run
