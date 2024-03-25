@@ -26,7 +26,7 @@ Minimal Music player, built with Python + Flask.
 - [x] Change UI
 - [x] Keyboard control
 - [x] Change the title when playing a song
-- [ ] ~~If click on a playing song, stop it~~. Keep it simple, reloading the song when clicking on the song name is not a bad feature
+- [ ] ~~If click on a playing song, stop it~~. Keep it simple
 - [x] Go to the main page when clicking on the header
 - [x] Bug: after seeking by mouse, cannot stop or play the song, maybe there is a bug with the focus
 - [x] sort songs in alphabetical order of All songs route
@@ -46,7 +46,7 @@ Minimal Music player, built with Python + Flask.
 ## Installation
 1. Clone this repo
 ```git
-git clone https://github.com/ngntrgduc/musyc-player
+git clone https://github.com/ngntrgduc/musyc-player.git
 ```
 2. Install [Flask](https://flask.palletsprojects.com/en/3.0.x/), 
 [librosa](https://librosa.org/doc/latest/index.html) (for getting song's duration)
