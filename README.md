@@ -2,6 +2,8 @@
 
 Minimal Music player, built with Python + Flask.
 
+![](/assets/screenshot.png)
+
 ## Features
 - Minimal. No genre or liked/starred song feature. Just song name, duration, and player
 - The player can be easily controlled through keyboard shortcuts:
